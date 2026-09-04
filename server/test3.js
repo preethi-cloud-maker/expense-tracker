@@ -1,1 +1,0 @@
-const express = require('express'); require('dotenv').config(); const db = require('./config/db'); const app = express(); app.listen(5003, async () => { console.log('Listening 3'); try { await db.query('SELECT 1'); console.log('DB ok'); } catch (e) { console.log('DB err'); } });

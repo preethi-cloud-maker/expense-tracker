@@ -1,1 +1,0 @@
-const express = require('express'); require('dotenv').config(); const app = express(); app.listen(5002, () => console.log('Listening 2'));
