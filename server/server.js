@@ -14,8 +14,16 @@ app.use('/api/transactions', require('./routes/transactionRoutes'));
 app.use('/api/budgets', require('./routes/budgetRoutes'));
 app.use('/api/dashboard', require('./routes/dashboardRoutes'));
 
+const db = require('./config/db');
+
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', async () => {
   console.log(`Server running on port ${PORT}`);
+  try {
+    await db.query('SELECT 1');
+    console.log('Database connected successfully');
+  } catch (err) {
+    console.error('Database connection failed:', err.message);
+  }
 });
