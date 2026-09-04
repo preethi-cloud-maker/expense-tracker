@@ -2,10 +2,22 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
+});
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+// Health check route for Railway
+app.get('/', (req, res) => {
+  res.status(200).json({ status: 'success', message: 'API is running' });
+});
 
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
