@@ -30,12 +30,9 @@ const db = require('./config/db');
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, '0.0.0.0', async () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`);
-  try {
-    await db.query('SELECT 1');
-    console.log('Database connected successfully');
-  } catch (err) {
-    console.error('Database connection failed:', err.message);
-  }
+  db.query('SELECT 1')
+    .then(() => console.log('Database connected successfully'))
+    .catch((err) => console.error('Database connection failed:', err.message));
 });

@@ -86,6 +86,7 @@ const Transactions = () => {
     }
   };
 
+  
   const handleDelete = async (id) => {
     //DELETE
     if (window.confirm('Are you sure you want to delete this transaction?')) {

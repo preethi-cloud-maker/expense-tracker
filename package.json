@@ -3,5 +3,8 @@
   "scripts": {
     "install": "npm install --prefix server",
     "start": "node server/server.js"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }
