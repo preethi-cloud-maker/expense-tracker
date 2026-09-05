@@ -19,6 +19,20 @@ app.get('/', (req, res) => {
   res.status(200).json({ status: 'success', message: 'API is running' });
 });
 
+app.get('/api/debug', async (req, res) => {
+  try {
+    const [tables] = await require('./config/db').query('SHOW TABLES');
+    let users = [];
+    if (tables.some(t => Object.values(t)[0] === 'users')) {
+      const [u] = await require('./config/db').query('SELECT id, name, email FROM users');
+      users = u;
+    }
+    res.json({ db_connected: true, tables, users, jwt_secret_set: !!process.env.JWT_SECRET });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/categories', require('./routes/categoryRoutes'));
